@@ -1,0 +1,12 @@
+
+{
+	"name": "UnityZip",
+	"displayName": "UnityZip",
+	"version": "1.0.0",
+	"unity": "2018.1",
+	"description": "unzip for unity",
+	"keywords": ["UnityZip"],
+	"category": "UnityZip",
+	"dependencies": {
+	}
+}

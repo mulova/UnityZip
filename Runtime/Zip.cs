@@ -22,11 +22,12 @@ public class ZipUtil
 
 	public static void Unzip (string zipFilePath, string location)
 	{
+        if (!Directory.Exists(location))
+        {
+            Directory.CreateDirectory(location);
+        }   
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX
-		Directory.CreateDirectory (location);
-		
-		using (ZipFile zip = ZipFile.Read (zipFilePath)) {
-			
+        using (ZipFile zip = ZipFile.Read (zipFilePath)) {
 			zip.ExtractAll (location, ExtractExistingFileAction.OverwriteSilently);
 		}
 #elif UNITY_ANDROID
@@ -40,11 +41,14 @@ public class ZipUtil
 
 	public static void Zip (string zipFileName, params string[] files)
 	{
+        string path = Path.GetDirectoryName(zipFileName);
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX
-		string path = Path.GetDirectoryName(zipFileName);
-		Directory.CreateDirectory (path);
-		
-		using (ZipFile zip = new ZipFile()) {
+
+        using (ZipFile zip = new ZipFile()) {
 			foreach (string file in files) {
 				zip.AddFile(file, "");
 			}
